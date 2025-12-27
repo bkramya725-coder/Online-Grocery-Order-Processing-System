@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.examly.springapp.exception.ResourceNotFoundException;
 import com.examly.springapp.model.CustomerReturn;
 import com.examly.springapp.repository.CustomerReturnRepo;
 
@@ -24,7 +25,8 @@ public class CustomerReturnServiceImpl implements CustomerReturnService{
 
     @Override
     public CustomerReturn getCustomerReturnById(Long id) {
-        return customerReturnRepo.findById(id).orElse(null);
+        return customerReturnRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Customer Return is not found with respective id.."));
     }
     
 }
+
