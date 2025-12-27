@@ -24,9 +24,6 @@ public class CustomerReturnController {
     @PostMapping
     public ResponseEntity<CustomerReturn> addCustomerReturn(@RequestBody CustomerReturn cust){
       CustomerReturn c =customerReturnService.addCustomerReturn(cust);
-      if(c==null){
-        return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-      }
       return new ResponseEntity<CustomerReturn>(c,HttpStatus.CREATED);
 
     }
@@ -34,18 +31,15 @@ public class CustomerReturnController {
     @GetMapping
     public ResponseEntity<List<CustomerReturn>> getAllCustomerReturns(){
         List<CustomerReturn> c=customerReturnService.getAllCustomerReturns();
-        if(!c.isEmpty()){
             return new ResponseEntity<List<CustomerReturn>>(c,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<CustomerReturn> getCustomerReturnById(@PathVariable Long id){
       CustomerReturn c=customerReturnService.getCustomerReturnById(id);
-      if(c!=null){
         return new ResponseEntity<CustomerReturn>(c,HttpStatus.OK);
-      }
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
+
