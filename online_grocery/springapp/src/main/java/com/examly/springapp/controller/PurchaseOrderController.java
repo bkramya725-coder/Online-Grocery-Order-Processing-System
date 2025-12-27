@@ -25,37 +25,34 @@ public class PurchaseOrderController {
     @PostMapping
     public ResponseEntity<PurchaseOrder> addPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder){
        PurchaseOrder p=purchaseOrderService.addPurchaseOrder(purchaseOrder);
-       if(p!=null){
+      
         return new ResponseEntity<PurchaseOrder>(p,HttpStatus.CREATED);
-       }
-       return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+      
     }
 
     @GetMapping
     public ResponseEntity<List<PurchaseOrder>> getAllPurchaseOrders(){
         List<PurchaseOrder> p=purchaseOrderService.getAllPurchaseOrders();
-        if(p!=null){
+        
             return new ResponseEntity<List<PurchaseOrder>>(p,HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+     
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PurchaseOrder> getPurchaseOrderById(@PathVariable long id){
         PurchaseOrder p=purchaseOrderService.getPurchaseOrderById(id);
-        if(p!=null){
+        
             return new ResponseEntity<PurchaseOrder>(p,HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+       
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PurchaseOrder> updatePurchaseOrder(@PathVariable long id,@RequestBody PurchaseOrder purchaseOrder ){
         PurchaseOrder p=purchaseOrderService.updatePurchaseOrder(id, purchaseOrder);
-        if(p!=null){
+       
             return new ResponseEntity<PurchaseOrder>(p,HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+       
     }
 
 }
+
