@@ -22,18 +22,17 @@ public class InventoryController {
     @GetMapping("/{inventoryId}")
     public ResponseEntity<Inventory> getById(@PathVariable Long inventoryId) {
         Inventory inventory = inventoryService.getInventoryById(inventoryId);
-        if (inventory != null) {
+       
             return ResponseEntity.ok(inventory);
-        }
-        return ResponseEntity.notFound().build();
+        
     }
 
     @PutMapping("/{inventoryId}")
     public ResponseEntity<Inventory> update(@PathVariable Long inventoryId, @RequestBody Inventory inventory) {
         Inventory updated = inventoryService.updateInventory(inventoryId, inventory);
-        if (updated != null) {
+       
             return ResponseEntity.ok(updated);
-        }
-        return ResponseEntity.notFound().build();
+      
     }
 }
+
