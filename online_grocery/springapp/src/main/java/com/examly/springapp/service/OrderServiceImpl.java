@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.examly.springapp.exception.ResourceNotFoundException;
 import com.examly.springapp.model.Order;
 import com.examly.springapp.repository.OrderRepo;
 
@@ -26,9 +27,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrderById(long id) {
-        return orderRepository.findById(id).orElse(null);
+        return orderRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Order is not found with respective id .."));
     }
 }
 
     
+
 
