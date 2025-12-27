@@ -31,14 +31,14 @@ public class SupplierController {
     @GetMapping("/{id}")
     public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id) {
         Supplier supplier = supplierService.getSupplierById(id);
-        if (supplier == null) return ResponseEntity.notFound().build();
+       
         return ResponseEntity.ok(supplier);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Supplier> updateSupplier(@PathVariable Long id, @RequestBody Supplier supplier) {
         Supplier updated = supplierService.updateSupplier(id, supplier);
-        if (updated == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(updated);
     }
 }
+
