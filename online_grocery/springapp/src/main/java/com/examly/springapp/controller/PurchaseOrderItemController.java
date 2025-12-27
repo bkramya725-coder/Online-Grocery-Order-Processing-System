@@ -24,20 +24,19 @@ public class PurchaseOrderItemController {
     @PostMapping
     public ResponseEntity<PurchaseOrderItem> addPurchaseOrderItem(@RequestBody PurchaseOrderItem purchaseOrderItem){
         PurchaseOrderItem p=purchaseOrderItemService.addPurchaseOrderItem(purchaseOrderItem);
-        if(p!=null){
+       
         return new ResponseEntity<PurchaseOrderItem>(p,HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+       
     }
     
     @GetMapping("/order/{orderId}")
     public ResponseEntity<List<PurchaseOrderItem>> getByOrderId(@PathVariable Long orderId){
         List<PurchaseOrderItem> p=purchaseOrderItemService.getByOrderId(orderId);
-        if(p!=null){
+        
             return new ResponseEntity<List<PurchaseOrderItem>>(p,HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+       
     }
 
     
 }
+
