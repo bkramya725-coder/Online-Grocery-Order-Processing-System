@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.examly.springapp.exception.ResourceNotFoundException;
 import com.examly.springapp.model.Product;
 import com.examly.springapp.repository.ProductRepo;
 
@@ -24,34 +25,42 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProductById(Long id) {
-        return productRepo.findById(id).orElse(null);
+        return productRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Product is not found with respective id.."));
 
     }
 
     @Override
-    public Product updateProduct(Long id, Product newProduct) {
-       if(!productRepo.existsById(id)){
-        return null;
-       }
-       Product existingProduct=productRepo.findById(id).orElse(null);
-       if(existingProduct!=null){
-        existingProduct.setProductName(newProduct.getProductName());
-                existingProduct.setDescription(newProduct.getDescription());
-                existingProduct.setPrice(newProduct.getPrice());
-                existingProduct.setStockQuantity(newProduct.getStockQuantity());
-        
-                return productRepo.save(existingProduct);
-       }
-       return null;
-    }
+public Product updateProduct(Long id, Product newProduct) {
 
-    @Override
-    public void deleteById(Long id){
-        if(productRepo.existsById(id)){
-            
-        
-        productRepo.deleteById(id);
-        }
-    }
+    Product existingProduct = productRepo.findById(id)
+        .orElseThrow(() ->
+            new ResourceNotFoundException(
+                "Product not found with id: " + id
+            )
+        );
+
+    existingProduct.setProductName(newProduct.getProductName());
+    existingProduct.setDescription(newProduct.getDescription());
+    existingProduct.setPrice(newProduct.getPrice());
+    existingProduct.setStockQuantity(newProduct.getStockQuantity());
+
+    return productRepo.save(existingProduct);
+}
+
+
+   @Override
+public void deleteById(Long id) {
+
+    Product product = productRepo.findById(id)
+        .orElseThrow(() ->
+            new ResourceNotFoundException(
+                "Product not found with id: " + id
+            )
+        );
+
+    productRepo.delete(product);
+}
+
     
 }
+
