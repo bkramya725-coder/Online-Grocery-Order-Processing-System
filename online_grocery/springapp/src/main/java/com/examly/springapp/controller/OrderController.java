@@ -38,13 +38,10 @@ public class OrderController {
    @GetMapping("/{id}")
    public ResponseEntity<Order> getById(@PathVariable long id) {
     Order order = orderService.getOrderById(id);
-    
-    if (order!=null) {
         return new ResponseEntity<>(order,HttpStatus.OK);
-    } else {
-        return ResponseEntity.notFound().build();
-    }
+  
 }
 
 }
+
 
